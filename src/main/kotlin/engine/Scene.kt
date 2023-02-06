@@ -3,6 +3,5 @@ package engine
 abstract class Scene {
     abstract fun init()
 
-    abstract fun tick()
-    abstract fun render()
+    abstract fun update(dt: Float)
 }

@@ -3,9 +3,11 @@ import engine.Scene
 import engine.Window
 import mu.KotlinLogging
 import org.lwjgl.Version
+import org.lwjgl.glfw.GLFW.glfwGetTime
 import org.lwjgl.glfw.GLFW.glfwPollEvents
 import org.lwjgl.opengl.GL
 import org.lwjgl.opengl.GL30.*
+import kotlin.math.round
 
 
 class Game {
@@ -38,44 +40,25 @@ class Game {
     }
 
     private fun loop() {
-        var lastTime = System.nanoTime()
-        val amountOfTicks = 60.0
-        val tickNs = 1_000_000_000 / amountOfTicks
-        val framesNs = 1_000_000_000 / 144.0
-        var tickDelta = 0.0
-        var framesDelta = 0.0
-        var timer = System.currentTimeMillis()
-        var frames = 0
+        var lastFrameTime = -1f
 
         while (!window.windowShouldClose()) {
-            val now = System.nanoTime()
-            tickDelta += (now - lastTime) / tickNs
-            framesDelta += (now - lastTime) / framesNs
-            lastTime = now
-            while (tickDelta >= 1) {
-                tick()
-                tickDelta--
+            val time = glfwGetTime().toFloat()
+            val dt = if (lastFrameTime == -1f) {
+                1f / 60f
+            } else {
+                time - lastFrameTime
             }
+            lastFrameTime = time
 
-            if (framesDelta >= 1) {
-                render()
-                frames++
-                framesDelta--
-            }
+            currentFps = round(1f / dt).toInt()
 
-            if (System.currentTimeMillis() - timer > 1000) {
-                timer += 1000
-                currentFps = frames
-                frames = 0
-            }
+            update(dt)
         }
     }
 
-    private fun tick() {
+    private fun update(dt: Float) {
         glfwPollEvents()
-    }
-
-    private fun render() {
         window.resizeViewport()
         glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT) // clear the framebuffer
 
@@ -85,7 +68,7 @@ class Game {
             glPolygonMode(GL_FRONT_AND_BACK, GL_FILL)
         }
 
-        currScene.render()
+        currScene.update(dt)
 
         window.swapBuffers()
     }

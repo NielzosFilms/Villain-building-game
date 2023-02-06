@@ -12,11 +12,7 @@ class LevelScene : Scene() {
         model.init()
     }
 
-    override fun tick() {
-
-    }
-
-    override fun render() {
+    override fun update(dt: Float) {
         shader.use()
         model.render()
         shader.detach()
