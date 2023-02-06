@@ -9,7 +9,6 @@ import org.lwjgl.opengl.GL
 import org.lwjgl.opengl.GL30.*
 import kotlin.math.round
 
-
 class Game {
     private val logger = KotlinLogging.logger {}
     private lateinit var window: Window

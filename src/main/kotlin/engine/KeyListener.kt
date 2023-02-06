@@ -3,7 +3,6 @@ package engine
 import org.lwjgl.glfw.GLFW.GLFW_PRESS
 import org.lwjgl.glfw.GLFW.GLFW_RELEASE
 
-
 class KeyListener {
     private val keysPressed: MutableMap<Int, Boolean> = mutableMapOf()
 

@@ -1,6 +1,6 @@
 package engine
 
-import org.lwjgl.opengl.GL20.*
+import org.lwjgl.opengl.GL30.*
 
 class Shader(vertexShaderPath: String, fragmentShaderPath: String) {
     private val vertexShaderSrc =

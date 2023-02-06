@@ -93,5 +93,4 @@ class Window private constructor() {
     }
 
     fun windowShouldClose(): Boolean = glfwWindowShouldClose(window)
-
 }

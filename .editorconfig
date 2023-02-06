@@ -1,0 +1,6 @@
+root = true
+
+[*.{kt,kts}]
+ij_kotlin_packages_to_use_import_on_demand = java.util.*,org.lwjgl.opengl.GL30.**,org.lwjgl.glfw.GLFW.**
+ktlint_standard_argument-list-wrapping = disabled
+ktlint_standard_trailing-comma-on-call-site = disabled
